@@ -12,16 +12,18 @@
         <input type="text" id="searchInput" placeholder="Search movies...">
     </header>
 
-    <!-- Timeline Slider -->
-    <div class="slider-container">
-        <label for="yearRange">Filter by Year:</label>
-        <input type="range" id="yearRange" min="1927" max="2025" value="2025" step="1">
-        <span id="yearDisplay">2025</span>
-    </div>
+    <main>
+        <div class="slider-container">
+            <label for="yearRange">Filter by Year:</label>
+            <input type="range" id="yearRange" min="1927" max="2025" value="2025">
+            <span id="yearDisplay">2025</span>
+        </div>
 
-    <div id="movie-container"></div>
+        <div id="movie-container" class="movie-grid">
+            <!-- Movie cards will be inserted here -->
+        </div>
+    </main>
 
-    <script src="movies.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
