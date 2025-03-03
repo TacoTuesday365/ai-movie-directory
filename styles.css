@@ -1,13 +1,61 @@
-.generation-section {
-    margin: 30px 0;
-    padding: 10px;
+/* General Styles */
+body {
+    background: #111;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
-h2 {
+/* Header */
+header {
+    background: linear-gradient(90deg, #ff00ff, #6600ff);
+    padding: 20px;
+    font-size: 1.5em;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Movie Grid */
+.movie-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Movie Cards */
+.movie-card {
+    background: #222;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    width: 200px;
+    box-shadow: 0px 4px 6px rgba(255, 0, 255, 0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 15px rgba(255, 0, 255, 0.8);
+}
+
+.movie-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.movie-card h3 {
+    font-size: 16px;
+    margin: 10px 0 5px;
     color: #ff00ff;
-    border-bottom: 2px solid #9400ff;
-    padding-bottom: 5px;
-    text-shadow: 0 0 10px #ff00ff, 0 0 20px #9400ff;
+}
+
+.movie-card p {
+    font-size: 12px;
+    color: #ffccff;
     text-align: left;
-    margin-left: 20px;
+    padding: 0 5px;
 }
