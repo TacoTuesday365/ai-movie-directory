@@ -1,4 +1,4 @@
-const API_KEY = "your_api_key_here";  // 🔥 Replace with your OMDB API Key
+const API_KEY = "16746966";  // 🔥 Replace with your OMDB API Key
 
 document.addEventListener("DOMContentLoaded", () => {
     loadMovies(); // Load static AI movie list on page load
