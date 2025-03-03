@@ -1,0 +1,19 @@
+# Node.js dependencies (if applicable)
+node_modules/
+package-lock.json
+
+# Environment variables (if any)
+.env
+
+# VS Code settings (optional)
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Build and deployment files
+dist/
+build/
+.cache/
+netlify.toml
