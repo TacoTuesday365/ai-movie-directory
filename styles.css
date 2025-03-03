@@ -1,62 +1,39 @@
 /* General Styles */
 body {
+    background: #111;
+    color: #fff;
     font-family: Arial, sans-serif;
-    background-color: #121212;  /* Dark background */
-    color: #ff00ff;  /* Neon pink text */
+    text-align: center;
     margin: 0;
     padding: 0;
-    text-align: center;
 }
 
 /* Header */
 header {
-    background-color: #222;
+    background: linear-gradient(90deg, #ff00ff, #6600ff);
     padding: 20px;
-}
-
-h1 {
-    color: #ff00ff;  /* Neon pink */
-    text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
-}
-
-/* Movie Container */
-#movie-container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 10px;
-    text-align: left;
-}
-
-/* Generation Sections */
-.generation-section {
-    margin: 20px 0;
-    padding: 10px;
-}
-
-h2 {
-    color: #9400ff;  /* Neon purple */
-    border-bottom: 2px solid #9400ff;
-    padding-bottom: 5px;
-    text-shadow: 0 0 10px #9400ff, 0 0 20px #9400ff;
+    font-size: 1.5em;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 /* Movie Grid */
 .movie-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     justify-content: center;
+    gap: 20px;
+    padding: 20px;
 }
 
 /* Movie Cards */
 .movie-card {
     background: #222;
-    padding: 10px;
+    padding: 15px;
     border-radius: 8px;
     text-align: center;
-    width: 150px;
+    width: 200px;
     box-shadow: 0px 4px 6px rgba(255, 0, 255, 0.5);
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .movie-card:hover {
@@ -71,12 +48,14 @@ h2 {
 }
 
 .movie-card h3 {
-    font-size: 14px;
+    font-size: 16px;
     margin: 10px 0 5px;
-    color: #ff00ff;  /* Neon pink */
+    color: #ff00ff;
 }
 
 .movie-card p {
     font-size: 12px;
-    color: #ffccff;  /* Light neon pink */
+    color: #ffccff;
+    text-align: left;
+    padding: 0 5px;
 }
