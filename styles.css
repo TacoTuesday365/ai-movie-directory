@@ -1,74 +1,60 @@
-/* General Page Styling */
 body {
     font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: white;
+    text-align: center;
     margin: 0;
     padding: 0;
-    background-color: #121212;
-    color: #ffffff;
 }
 
-/* Header Styling */
 header {
-    background-color: #1f1f1f;
+    background: #1f1f1f;
     padding: 20px;
-    text-align: center;
 }
 
 h1 {
     margin: 0;
-    font-size: 2rem;
+    font-size: 24px;
 }
 
-/* Search Bar */
-#search {
-    width: 80%;
-    max-width: 400px;
+input {
     padding: 10px;
+    width: 60%;
     margin-top: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
 }
 
-/* Movie List Grid */
-#movie-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+.slider-container {
+    margin: 20px auto;
+    width: 50%;
+}
+
+#movie-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 15px;
     padding: 20px;
-    justify-content: center;
 }
 
-/* Individual Movie Card */
 .movie-card {
-    background-color: #222;
+    background: #222;
     padding: 15px;
-    border-radius: 10px;
+    width: 180px;
+    border-radius: 8px;
     text-align: center;
-    transition: transform 0.2s ease-in-out;
 }
 
-.movie-card:hover {
-    transform: scale(1.05);
-}
-
-/* Movie Poster */
 .movie-card img {
     width: 100%;
-    height: auto;
     border-radius: 5px;
 }
 
-/* Movie Title */
-.movie-title {
-    font-size: 1.2rem;
-    margin-top: 10px;
+.movie-card h3 {
+    font-size: 16px;
+    margin: 10px 0 5px;
 }
 
-/* Footer */
-footer {
-    text-align: center;
-    padding: 15px;
-    background-color: #1f1f1f;
-    margin-top: 20px;
+.movie-card p {
+    font-size: 14px;
+    color: #bbb;
 }
