@@ -1,43 +1,56 @@
-const API_KEY = '16746966'; // Your activated OMDB API key
-const BASE_URL = 'https://www.omdbapi.com/';
+document.addEventListener("DOMContentLoaded", function () {
+  const searchInput = document.getElementById("search");
+  const movieList = document.getElementById("movie-list");
 
-// Function to fetch movies by search term
-async function fetchMovies(searchTerm) {
-    try {
-        const response = await fetch(`${BASE_URL}?s=${searchTerm}&apikey=${API_KEY}`);
-        const data = await response.json();
+  if (!searchInput || !movieList) {
+    console.error("Error: Search input or movie list not found!");
+    return;
+  }
 
-        if (data.Response === "True") {
-            displayMovies(data.Search);
-        } else {
-            console.error("Error:", data.Error);
-        }
-    } catch (error) {
-        console.error("Failed to fetch movies:", error);
-    }
-}
-
-// Function to display movies on the page
-function displayMovies(movies) {
-    const resultsContainer = document.getElementById("results");
-    resultsContainer.innerHTML = "";
-
-    movies.forEach(movie => {
-        const movieElement = document.createElement("div");
-        movieElement.classList.add("movie");
-
-        movieElement.innerHTML = `
-            <img src="${movie.Poster !== "N/A" ? movie.Poster : 'placeholder.jpg'}" alt="${movie.Title}">
-            <h3>${movie.Title} (${movie.Year})</h3>
-        `;
-
-        resultsContainer.appendChild(movieElement);
-    });
-}
-
-// Event listener for search input
-document.getElementById("search-input").addEventListener("keyup", (event) => {
+  searchInput.addEventListener("keyup", function (event) {
     if (event.key === "Enter") {
-        fetchMovies(event.target.value);
+      const query = event.target.value.trim();
+      if (query) {
+        fetchMovies(query);
+      }
     }
+  });
+
+  function fetchMovies(searchQuery) {
+    const API_KEY = "16746966"; // Make sure this is only declared here
+    const BASE_URL = "https://www.omdbapi.com/";
+    const url = `${BASE_URL}?s=${encodeURIComponent(searchQuery)}&apikey=${API_KEY}`;
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.Response === "True" && data.Search) {
+          displayMovies(data.Search);
+        } else {
+          console.error("OMDb API error:", data.Error);
+          movieList.innerHTML = `<p>No movies found: ${data.Error}</p>`;
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching movies:", error);
+        movieList.innerHTML = `<p>Error fetching movies. Please try again later.</p>`;
+      });
+  }
+
+  function displayMovies(movies) {
+    movieList.innerHTML = ""; // Clear old results
+
+    movies.forEach((movie) => {
+      const poster = movie.Poster !== "N/A" ? movie.Poster : "https://via.placeholder.com/200x300?text=No+Image";
+
+      const movieCard = document.createElement("div");
+      movieCard.className = "movie-card";
+      movieCard.innerHTML = `
+        <img src="${poster}" alt="${movie.Title}" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x300?text=No+Image';">
+        <h3>${movie.Title}</h3>
+        <p>Year: ${movie.Year}</p>
+      `;
+      movieList.appendChild(movieCard);
+    });
+  }
 });
