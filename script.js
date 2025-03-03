@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
             card.innerHTML = `
                 <img class="movie-poster" src="${movie.poster}" alt="${movie.title} Poster">
                 <div class="movie-info">
-                    <h2 class="movie-title">${movie.title}</h2>
+                    <h3 class="movie-title">${movie.title}</h3>
                     <a class="trailer-button" href="${movie.trailer}" target="_blank">Watch Trailer</a>
                 </div>
             `;
