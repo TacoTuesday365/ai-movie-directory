@@ -1,77 +1,67 @@
-const API_KEY = "16746966"; // Your OMDb API Key
+document.addEventListener("DOMContentLoaded", () => {
+    const movieContainer = document.getElementById("movie-container");
 
-const moviesByGeneration = {
-    "Baby Boomers (1946-1964)": [
-        { title: "2001: A Space Odyssey", year: "1968" },
-        { title: "Metropolis", year: "1927" },
-        { title: "Colossus: The Forbin Project", year: "1970" }
-    ],
-    "Generation X (1965-1980)": [
-        { title: "Blade Runner", year: "1982" },
-        { title: "The Terminator", year: "1984" },
-        { title: "RoboCop", year: "1987" }
-    ],
-    "Millennials (1981-1996)": [
-        { title: "The Matrix", year: "1999" },
-        { title: "A.I. Artificial Intelligence", year: "2001" },
-        { title: "I, Robot", year: "2004" }
-    ],
-    "Generation Z (1997-2012)": [
-        { title: "Ex Machina", year: "2014" },
-        { title: "Her", year: "2013" },
-        { title: "The Creator", year: "2023" }
-    ]
-};
+    // Movies grouped by generation
+    const moviesByGeneration = {
+        "Silent Generation (1928–1945)": [
+            { title: "Metropolis", year: 1927, poster: "https://upload.wikimedia.org/wikipedia/en/6/6c/Metropolisposter.jpg" }
+        ],
+        "Baby Boomers (1946–1964)": [
+            { title: "2001: A Space Odyssey", year: 1968, poster: "https://upload.wikimedia.org/wikipedia/en/1/11/2001_A_Space_Odyssey_%281968%29.png" },
+            { title: "The Stepford Wives", year: 1975, poster: "https://upload.wikimedia.org/wikipedia/en/7/76/The_Stepford_Wives_1975.jpg" }
+        ],
+        "Generation X (1965–1980)": [
+            { title: "Blade Runner", year: 1982, poster: "https://upload.wikimedia.org/wikipedia/en/5/53/Blade_Runner_poster.jpg" },
+            { title: "The Terminator", year: 1984, poster: "https://upload.wikimedia.org/wikipedia/en/7/70/Terminator1984movieposter.jpg" },
+            { title: "RoboCop", year: 1987, poster: "https://upload.wikimedia.org/wikipedia/en/3/39/RoboCop_%281987%29_theatrical_poster.jpg" }
+        ],
+        "Millennials (1981–1996)": [
+            { title: "The Matrix", year: 1999, poster: "https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg" },
+            { title: "A.I. Artificial Intelligence", year: 2001, poster: "https://upload.wikimedia.org/wikipedia/en/e/e6/AI_Poster.jpg" },
+            { title: "I, Robot", year: 2004, poster: "https://upload.wikimedia.org/wikipedia/en/3/3b/Movie_poster_i_robot.jpg" }
+        ],
+        "Generation Z (1997–2012)": [
+            { title: "Ex Machina", year: 2014, poster: "https://upload.wikimedia.org/wikipedia/en/b/ba/Ex_Machina_%282015%29.png" },
+            { title: "Her", year: 2013, poster: "https://upload.wikimedia.org/wikipedia/en/4/44/Her2013Poster.jpg" },
+            { title: "Avengers: Age of Ultron", year: 2015, poster: "https://upload.wikimedia.org/wikipedia/en/1/1b/Avengers_Age_of_Ultron.jpg" }
+        ],
+        "Generation Alpha (2013–2025)": [
+            { title: "M3GAN", year: 2023, poster: "https://upload.wikimedia.org/wikipedia/en/a/a2/M3GAN_Poster.jpg" },
+            { title: "The Creator", year: 2023, poster: "https://upload.wikimedia.org/wikipedia/en/4/4e/The_Creator_%282023%29_poster.jpg" }
+        ]
+    };
 
-// Generate movie sections
-const mainContainer = document.getElementById("movie-sections");
+    function displayMovies() {
+        movieContainer.innerHTML = ""; // Clear existing content
 
-Object.keys(moviesByGeneration).forEach(generation => {
-    const section = document.createElement("section");
-    section.innerHTML = `<h2>${generation}</h2><div class="movie-grid"></div>`;
+        for (const generation in moviesByGeneration) {
+            const section = document.createElement("div");
+            section.classList.add("generation-section");
 
-    const grid = section.querySelector(".movie-grid");
+            const header = document.createElement("h2");
+            header.textContent = generation;
+            section.appendChild(header);
 
-    moviesByGeneration[generation].forEach(movie => {
-        const card = document.createElement("div");
-        card.classList.add("movie-card");
-        card.dataset.title = movie.title;
-        card.dataset.year = movie.year;
+            const movieGrid = document.createElement("div");
+            movieGrid.classList.add("movie-grid");
 
-        fetchMoviePoster(movie.title, movie.year, card);
-        grid.appendChild(card);
-    });
+            moviesByGeneration[generation].forEach(movie => {
+                const card = document.createElement("div");
+                card.classList.add("movie-card");
 
-    mainContainer.appendChild(section);
-});
+                card.innerHTML = `
+                    <img src="${movie.poster}" alt="${movie.title}">
+                    <h3>${movie.title}</h3>
+                    <p>Year: ${movie.year}</p>
+                `;
 
-// Fetch movie poster from API
-async function fetchMoviePoster(title, year, card) {
-    try {
-        const response = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(title)}&y=${year}&apikey=${API_KEY}`);
-        const data = await response.json();
-        if (data.Poster && data.Poster !== "N/A") {
-            card.innerHTML = `<img src="${data.Poster}" alt="${title}"><h3>${title}</h3>`;
-        } else {
-            card.innerHTML = `<img src="placeholder.jpg" alt="${title}"><h3>${title}</h3>`;
+                movieGrid.appendChild(card);
+            });
+
+            section.appendChild(movieGrid);
+            movieContainer.appendChild(section);
         }
-        card.addEventListener("click", () => openMovieModal(data));
-    } catch (error) {
-        console.error("Error fetching movie:", error);
     }
-}
 
-// Open modal with movie details
-function openMovieModal(movie) {
-    document.getElementById("modal-title").textContent = movie.Title;
-    document.getElementById("modal-poster").src = movie.Poster !== "N/A" ? movie.Poster : "placeholder.jpg";
-    document.getElementById("modal-year").textContent = `Year: ${movie.Year}`;
-    document.getElementById("modal-plot").textContent = movie.Plot || "No description available.";
-
-    document.getElementById("movie-modal").style.display = "flex";
-}
-
-// Close modal
-document.querySelector(".close").addEventListener("click", () => {
-    document.getElementById("movie-modal").style.display = "none";
+    displayMovies();
 });
