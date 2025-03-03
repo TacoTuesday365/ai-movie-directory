@@ -1,66 +1,77 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const searchInput = document.getElementById("searchInput");
-    const yearRange = document.getElementById("yearRange");
-    const yearDisplay = document.getElementById("yearDisplay");
-    const movieContainer = document.getElementById("movie-container");
+const API_KEY = "16746966"; // Your OMDb API Key
 
-    const API_KEY = "16746966"; // Replace with your API key
+const moviesByGeneration = {
+    "Baby Boomers (1946-1964)": [
+        { title: "2001: A Space Odyssey", year: "1968" },
+        { title: "Metropolis", year: "1927" },
+        { title: "Colossus: The Forbin Project", year: "1970" }
+    ],
+    "Generation X (1965-1980)": [
+        { title: "Blade Runner", year: "1982" },
+        { title: "The Terminator", year: "1984" },
+        { title: "RoboCop", year: "1987" }
+    ],
+    "Millennials (1981-1996)": [
+        { title: "The Matrix", year: "1999" },
+        { title: "A.I. Artificial Intelligence", year: "2001" },
+        { title: "I, Robot", year: "2004" }
+    ],
+    "Generation Z (1997-2012)": [
+        { title: "Ex Machina", year: "2014" },
+        { title: "Her", year: "2013" },
+        { title: "The Creator", year: "2023" }
+    ]
+};
 
-    let debounceTimer;
+// Generate movie sections
+const mainContainer = document.getElementById("movie-sections");
 
-    // Initial movie fetch
-    fetchMovies("", yearRange.value);
+Object.keys(moviesByGeneration).forEach(generation => {
+    const section = document.createElement("section");
+    section.innerHTML = `<h2>${generation}</h2><div class="movie-grid"></div>`;
 
-    searchInput.addEventListener("input", () => {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-            fetchMovies(searchInput.value, yearRange.value);
-        }, 500); // 500ms delay
+    const grid = section.querySelector(".movie-grid");
+
+    moviesByGeneration[generation].forEach(movie => {
+        const card = document.createElement("div");
+        card.classList.add("movie-card");
+        card.dataset.title = movie.title;
+        card.dataset.year = movie.year;
+
+        fetchMoviePoster(movie.title, movie.year, card);
+        grid.appendChild(card);
     });
 
-    yearRange.addEventListener("input", () => {
-        yearDisplay.textContent = yearRange.value;
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-            fetchMovies(searchInput.value, yearRange.value);
-        }, 500); // 500ms delay
-    });
+    mainContainer.appendChild(section);
+});
 
-    async function fetchMovies(query = "", year = "") {
-        if (!query.trim()) return; // Prevent empty queries
-
-        let url = `https://www.omdbapi.com/?s=${query}&apikey=${API_KEY}`;
-        if (year) url += `&y=${year}`;
-
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-
-            if (data.Response === "True") {
-                displayMovies(data.Search);
-            } else {
-                movieContainer.innerHTML = `<p>No results found.</p>`;
-            }
-        } catch (error) {
-            console.error("Error fetching data:", error);
-            movieContainer.innerHTML = `<p>Error loading movies.</p>`;
+// Fetch movie poster from API
+async function fetchMoviePoster(title, year, card) {
+    try {
+        const response = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(title)}&y=${year}&apikey=${API_KEY}`);
+        const data = await response.json();
+        if (data.Poster && data.Poster !== "N/A") {
+            card.innerHTML = `<img src="${data.Poster}" alt="${title}"><h3>${title}</h3>`;
+        } else {
+            card.innerHTML = `<img src="placeholder.jpg" alt="${title}"><h3>${title}</h3>`;
         }
+        card.addEventListener("click", () => openMovieModal(data));
+    } catch (error) {
+        console.error("Error fetching movie:", error);
     }
+}
 
-    function displayMovies(movies) {
-        movieContainer.innerHTML = "";
+// Open modal with movie details
+function openMovieModal(movie) {
+    document.getElementById("modal-title").textContent = movie.Title;
+    document.getElementById("modal-poster").src = movie.Poster !== "N/A" ? movie.Poster : "placeholder.jpg";
+    document.getElementById("modal-year").textContent = `Year: ${movie.Year}`;
+    document.getElementById("modal-plot").textContent = movie.Plot || "No description available.";
 
-        movies.forEach(movie => {
-            const card = document.createElement("div");
-            card.classList.add("movie-card");
+    document.getElementById("movie-modal").style.display = "flex";
+}
 
-            card.innerHTML = `
-                <img src="${movie.Poster !== "N/A" ? movie.Poster : "placeholder.jpg"}" alt="${movie.Title}">
-                <h3>${movie.Title}</h3>
-                <p>Year: ${movie.Year}</p>
-            `;
-
-            movieContainer.appendChild(card);
-        });
-    }
+// Close modal
+document.querySelector(".close").addEventListener("click", () => {
+    document.getElementById("movie-modal").style.display = "none";
 });
