@@ -1,40 +1,60 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #111;
-    color: #fff;
+    background-color: #121212;
+    color: white;
     margin: 0;
     padding: 0;
-}
-
-header {
     text-align: center;
+}
+
+/* Header */
+header {
+    background-color: #222;
     padding: 20px;
-    background: #222;
-    font-size: 24px;
 }
 
-section {
-    margin: 20px;
+h1 {
+    color: #ffcc00;
 }
 
-h2 {
-    margin-left: 10px;
+/* Movie Container */
+#movie-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 10px;
+    text-align: left;
 }
 
-.movie-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
+/* Generation Sections */
+.generation-section {
+    margin: 20px 0;
     padding: 10px;
 }
 
+h2 {
+    color: #ffcc00;
+    border-bottom: 2px solid #ffcc00;
+    padding-bottom: 5px;
+}
+
+/* Movie Grid */
+.movie-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Movie Cards */
 .movie-card {
     background: #222;
+    padding: 10px;
     border-radius: 8px;
-    overflow: hidden;
     text-align: center;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
+    width: 150px;
+    box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.2);
+    transition: transform 0.2s;
 }
 
 .movie-card:hover {
@@ -44,39 +64,15 @@ h2 {
 .movie-card img {
     width: 100%;
     height: auto;
-    border-bottom: 1px solid #333;
+    border-radius: 5px;
 }
 
 .movie-card h3 {
     font-size: 14px;
-    padding: 10px;
+    margin: 10px 0 5px;
 }
 
-/* Modal */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background: #222;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    width: 300px;
-}
-
-.close {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    font-size: 24px;
-    cursor: pointer;
+.movie-card p {
+    font-size: 12px;
+    color: #ccc;
 }
