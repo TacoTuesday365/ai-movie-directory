@@ -4,43 +4,40 @@ document.addEventListener("DOMContentLoaded", () => {
     const yearDisplay = document.getElementById("yearDisplay");
     const movieContainer = document.getElementById("movie-container");
 
-    const API_KEY = "16746966"; // Your OMDb API key
+    const API_KEY = "16746966";  // Replace with your activated OMDb API Key
 
-    // Fetch movies based on search input
+    // Initial movie fetch (latest year)
+    fetchMovies("", yearRange.value);
+
     searchInput.addEventListener("input", () => {
         fetchMovies(searchInput.value, yearRange.value);
     });
 
-    // Fetch movies based on year slider
     yearRange.addEventListener("input", () => {
         yearDisplay.textContent = yearRange.value;
         fetchMovies(searchInput.value, yearRange.value);
     });
 
-    // Fetch movies from OMDb API
     async function fetchMovies(query = "", year = "") {
-        if (!query) return; // Avoid empty queries
-
-        let url = `https://www.omdbapi.com/?s=${query}&apikey=${API_KEY}`;
+        let url = `https://www.omdbapi.com/?s=${query || "AI"}&apikey=${API_KEY}`;
         if (year) url += `&y=${year}`;
 
         try {
             const response = await fetch(url);
             const data = await response.json();
-
-            if (data.Response === "True") {
+            if (data.Search) {
                 displayMovies(data.Search);
             } else {
-                movieContainer.innerHTML = `<p>No movies found.</p>`;
+                movieContainer.innerHTML = `<p>No results found.</p>`;
             }
         } catch (error) {
-            console.error("Error fetching movies:", error);
+            console.error("Error fetching data:", error);
+            movieContainer.innerHTML = `<p>Error loading movies.</p>`;
         }
     }
 
-    // Display movies dynamically
     function displayMovies(movies) {
-        movieContainer.innerHTML = ""; // Clear previous results
+        movieContainer.innerHTML = "";
 
         movies.forEach(movie => {
             const card = document.createElement("div");
