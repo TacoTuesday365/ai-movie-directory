@@ -4,28 +4,39 @@ document.addEventListener("DOMContentLoaded", () => {
     const yearDisplay = document.getElementById("yearDisplay");
     const movieContainer = document.getElementById("movie-container");
 
-    const API_KEY = "16746966";  // Replace with your activated OMDb API Key
+    const API_KEY = "16746966"; // Replace with your API key
 
-    // Initial movie fetch (latest year)
+    let debounceTimer;
+
+    // Initial movie fetch
     fetchMovies("", yearRange.value);
 
     searchInput.addEventListener("input", () => {
-        fetchMovies(searchInput.value, yearRange.value);
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            fetchMovies(searchInput.value, yearRange.value);
+        }, 500); // 500ms delay
     });
 
     yearRange.addEventListener("input", () => {
         yearDisplay.textContent = yearRange.value;
-        fetchMovies(searchInput.value, yearRange.value);
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            fetchMovies(searchInput.value, yearRange.value);
+        }, 500); // 500ms delay
     });
 
     async function fetchMovies(query = "", year = "") {
-        let url = `https://www.omdbapi.com/?s=${query || "AI"}&apikey=${API_KEY}`;
+        if (!query.trim()) return; // Prevent empty queries
+
+        let url = `https://www.omdbapi.com/?s=${query}&apikey=${API_KEY}`;
         if (year) url += `&y=${year}`;
 
         try {
             const response = await fetch(url);
             const data = await response.json();
-            if (data.Search) {
+
+            if (data.Response === "True") {
                 displayMovies(data.Search);
             } else {
                 movieContainer.innerHTML = `<p>No results found.</p>`;
