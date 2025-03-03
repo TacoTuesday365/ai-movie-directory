@@ -1,90 +1,61 @@
+/* General Styles */
 body {
-    font-family: sans-serif;
-    background-color: #121212; /* Dark background */
+    background: #111;
     color: #fff;
+    font-family: Arial, sans-serif;
+    text-align: center;
     margin: 0;
     padding: 0;
 }
 
-header, footer {
-    background-color: #0a0a0a; /* Slightly darker background */
-    padding: 1rem;
-    text-align: center;
-    border-bottom: 2px solid #ff69b4; /* Neon Pink Header/Footer border */
+/* Header */
+header {
+    background: linear-gradient(90deg, #ff00ff, #6600ff);
+    padding: 20px;
+    font-size: 1.5em;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
-main {
-    padding: 1rem;
-}
-
-#movie-categories h2, #movies-grid h2 {
-  text-align: center;
-  margin-bottom: 1rem;
-  color: #ff69b4; /* Neon Pink headings */
-}
-
-.categories-grid {
+/* Movie Grid */
+.movie-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    gap: 20px;
+    padding: 20px;
 }
 
-.category-button {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #dda0dd; /* Lavender border */
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Smooth transition */
-}
-
-.category-button:hover {
-    background-color: #ff69b4; /* Hover Color Neon Pink*/
-    color: #000; /* Make font black*/
-    border-color: #ff69b4;
-}
-
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
-    gap: 1rem;
-}
-
+/* Movie Cards */
 .movie-card {
-    background-color: #1e1e1e; /* Darker Movie Card*/
+    background: #222;
+    padding: 15px;
     border-radius: 8px;
-    padding: 0.5rem;
     text-align: center;
-    border: 1px solid #dda0dd; /* Lavender Card Border */
-    transition: transform 0.3s ease;
+    width: 200px;
+    box-shadow: 0px 4px 6px rgba(255, 0, 255, 0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .movie-card:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
+    box-shadow: 0px 4px 15px rgba(255, 0, 255, 0.8);
 }
 
 .movie-card img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(255, 105, 180, 0.5); /* Neon glow */
 }
 
 .movie-card h3 {
-    margin-top: 0.5rem;
-    font-size: 1rem;
-    color: #e6b8ff; /* Lilac color */
+    font-size: 16px;
+    margin: 10px 0 5px;
+    color: #ff00ff;
 }
 
 .movie-card p {
-    color: #dda0dd; /* Lavender description text */
-}
-
-footer {
-    margin-top: 2rem;
-    font-size: 0.8rem;
-    color: #dda0dd; /* Lavender footer text */
+    font-size: 12px;
+    color: #ffccff;
+    text-align: left;
+    padding: 0 5px;
 }
