@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 exports.handler = async (event) => {
-  const apiKey = process.env.OMDB_API_KEY; //Environment variable, store API key here
+  const apiKey = process.env.OMDB_API_KEY;
 
   if (!apiKey) {
     return {
@@ -11,10 +11,11 @@ exports.handler = async (event) => {
   }
 
   try {
-    const searchTerm = event.queryStringParameters.search; //get search term from URL
-    const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`;
-
+    const title = event.queryStringParameters.title; // get the title
+    const year = event.queryStringParameters.year; // get the year
+    const apiUrl = `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&y=${year}&apikey=${apiKey}`;
     const response = await fetch(apiUrl);
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
     const data = await response.json();
 
     return {
