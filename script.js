@@ -1,5 +1,3 @@
-const API_KEY = "16746966";  // ✅ Your OMDB API Key
-
 document.addEventListener("DOMContentLoaded", loadMovies);
 
 const moviesByGeneration = {
@@ -72,8 +70,7 @@ async function loadMovies() {
 
 async function fetchMovieDetails(title, year) {
     try {
-        const url = `https://www.omdbapi.com/?t=${encodeURIComponent(title)}&y=${year}&apikey=${API_KEY}`;
-        const response = await fetch(url);
+        const response = await fetch(`/.netlify/functions/get_movie?title=${encodeURIComponent(title)}&year=${year}`);
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         const data = await response.json();
         return data.Response === "True" ? data : null;
