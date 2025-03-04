@@ -26,6 +26,24 @@ header p {
     margin: 0;
 }
 
+/* User Guide */
+#user-guide {
+    background: #222;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+#user-guide h2 {
+    color: #ff00ff;
+    margin-bottom: 10px;
+}
+
+#user-guide p {
+    color: #ffccff;
+}
+
 /* Movie Grid */
 .movie-grid {
     display: flex;
