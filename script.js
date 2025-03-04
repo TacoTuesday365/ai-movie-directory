@@ -18,9 +18,13 @@ const aiMovies = [
     { title: "Akira", year: "1988", trailer: "https://www.youtube.com/watch?v=wU-fqr682w4" },
     { title: "Total Recall", year: "1990", trailer: "https://www.youtube.com/watch?v=jUhDXqN8j9I" },
     { title: "Terminator 2: Judgment Day", year: "1991", trailer: "https://www.youtube.com/watch?v=CRRlbK5w8KE" },
+    { title: "RoboCop 2", year: "1990", trailer: "" },  // ADD trailer
+    { title: "RoboCop 3", year: "1993", trailer: "" },  // ADD trailer
     { title: "Ghost in the Shell", year: "1995", trailer: "https://www.youtube.com/watch?v=SvBVDibG94g" },
     { title: "The Matrix", year: "1999", trailer: "https://www.youtube.com/watch?v=vKQi3jnLgZg" },
     { title: "Bicentennial Man", year: "1999", trailer: "https://www.youtube.com/watch?v=UvH1dP5O2wI" },
+    { title: "The Matrix Reloaded", year: "2003", trailer: "" },  // ADD trailer
+    { title: "The Matrix Revolutions", year: "2003", trailer: "" },  // ADD trailer
     { title: "A.I. Artificial Intelligence", year: "2001", trailer: "https://www.youtube.com/watch?v=oNS9ITeE09Y" },
     { title: "Minority Report", year: "2002", trailer: "https://www.youtube.com/watch?v=report" },
     { title: "I, Robot", year: "2004", trailer: "https://www.youtube.com/watch?v=G9vM0wM3bOE" },
@@ -37,6 +41,9 @@ const aiMovies = [
     { title: "The Mitchells vs. The Machines", year: "2021", trailer: "https://www.youtube.com/watch?v=N_pb4Aq9J1c" },
     { title: "M3GAN", year: "2023", trailer: "https://www.youtube.com/watch?v=SVW46cKet8c" },
     { title: "The Creator", year: "2023", trailer: "https://www.youtube.com/watch?v=ex3WrZTEAw4" }
+
+    // Add even more movies here!
+
 ];
 
 async function loadMovies() {
