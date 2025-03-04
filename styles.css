@@ -8,6 +8,9 @@ body {
     padding: 0;
 }
 
+h1 {
+    font-size: 0.5in;
+}
 /* Header */
 header {
     background: linear-gradient(90deg, #ff00ff, #6600ff);
