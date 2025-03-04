@@ -9,14 +9,21 @@ body {
 }
 
 h1 {
-    font-size: 0.25in; /* Smaller font size */
+    font-size: 1.75em; /* Larger main title */
+    margin-bottom: 0.25em; /* Space between the main title and the paragraph */
 }
+
 /* Header */
 header {
     background: linear-gradient(90deg, #ff00ff, #6600ff);
-    padding: 5px; /* Reduced padding */
-    font-size: 1.5em;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    padding: 0.5em 1em; /* Adjust padding: smaller vertical padding, a bit more horizontal */
+    display: inline-block; /* Make the header only as large as its content */
+}
+
+header p {
+    font-size: 0.9em; /* Subtitle size smaller than header*/
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /*added the style to paragraph*/
+    margin: 0; /* to center the text */
 }
 
 /* Movie Grid */
