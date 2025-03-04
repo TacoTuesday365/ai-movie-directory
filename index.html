@@ -4,31 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Movie Directory</title>
+    <meta name="description" content="Explore AI-generated movie summaries, reviews, and information.">
+    <meta name="keywords" content="AI, movies, directory, summaries, reviews, entertainment">
+    <meta name="author" content="Your Name">  <!-- Replace with your name -->
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Replace with your favicon file -->
 
-    <!-- Google AdSense Script -->
+    <!-- Google AdSense Auto Ads Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9233288125765077"
-    crossorigin="anonymous"></script>
+            crossorigin="anonymous"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-9233288125765077",
+            enable_page_level_ads: true
+        });
+    </script>
 </head>
 <body>
     <header>
         <h1>🎥 AI Movie Directory</h1>
         <p>The Singularity is Here!</p>
     </header>
-    
+
     <main>
-        <div id="movie-container" class="movie-grid"></div>
-        
-        <!-- AdSense Ad Unit (Example: Below Movies) -->
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-9233288125765077"
-             data-ad-slot="YOUR_AD_SLOT_ID"
-             data-ad-format="auto"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+        <div id="movie-search">
+           <!--add a search box here -->
+        </div>
+        <div id="movie-container" class="movie-grid">
+            <!-- Movie listings will be added here -->
+        </div>
     </main>
+
+    <footer>
+        <p>© 2024 AI Movie Directory</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
