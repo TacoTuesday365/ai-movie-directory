@@ -17,13 +17,13 @@ h1 {
 header {
     background: linear-gradient(90deg, #ff00ff, #6600ff);
     padding: 0.5em 1em; /* Adjust padding: smaller vertical padding, a bit more horizontal */
-    display: inline-block; /* Make the header only as large as its content */
+    width: 100%; /* Make the header span the entire page width */
 }
 
 header p {
-    font-size: 0.9em; /* Subtitle size smaller than header*/
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /*added the style to paragraph*/
-    margin: 0; /* to center the text */
+    font-size: 1.05em; /* Make the subheading larger  (increased)*/
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    margin: 0;
 }
 
 /* Movie Grid */
