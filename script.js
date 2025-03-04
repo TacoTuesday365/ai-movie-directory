@@ -56,59 +56,29 @@ const aiMovies = [
   { title: "Upgrade", year: "2018"},
   { title: "Alita: Battle Angel", year: "2019"},
   { title: "The Mitchells vs. The Machines", year: "2021"},
-  { title: "M3GAN", year: "2023"},
   { title: "The Creator", year: "2023"}
 ];
 
-let batchSize = 14; // Number of movies to load per batch
-let startIndex = 0; // Index of the first movie to load
-let allMoviesLoaded = false; // Flag to indicate if all movies are loaded
-
 async function loadMovies() {
     const container = document.getElementById("movie-container");
-    //Load More Div
     container.innerHTML = ""; // Clear previous content
+
+    // Sort movies first by year
+    aiMovies.sort((a, b) => a.year - b.year);
 
     const movieGrid = document.createElement("div");
     movieGrid.classList.add("movie-grid");
-    container.appendChild(movieGrid);
 
-    loadMoreMovies(movieGrid); // Initial load
-
-    // Load more movies on scroll
-    window.addEventListener('scroll', () => {
-        if (!allMoviesLoaded && (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
-            loadMoreMovies(movieGrid);
-        }
-    });
-}
-
-async function loadMoreMovies(movieGrid) {
-    const container = document.getElementById("movie-container");
-    //Add and Load Batch Movies
-    let endIndex = startIndex + batchSize;
-    if (endIndex >= aiMovies.length) {
-        endIndex = aiMovies.length;
-        allMoviesLoaded = true;
-
-        const loadMoreNotice = document.createElement("h2");
-        loadMoreNotice.textContent = "More Titles are Coming Soon!";
-        container.appendChild(loadMoreNotice);
-    }
-
-    for (let i = startIndex; i < endIndex; i++) {
-        const movie = aiMovies[i];
+    for (const movie of aiMovies) {
         try {
             const data = await fetchMovieDetails(movie.title, movie.year);
-            if (data) {
-                movieGrid.appendChild(createMovieCard(data, movie.title + " " + movie.year + " trailer"));
-            }
+            if (data) movieGrid.appendChild(createMovieCard(data, movie.title + " " + movie.year + " trailer"));
         } catch (error) {
             console.error(`Error loading movie: ${movie.title}`, error);
         }
     }
+
     container.appendChild(movieGrid);
-    startIndex = endIndex; // Update the starting index for the next batch
 }
 
 async function fetchMovieDetails(title, year) {
