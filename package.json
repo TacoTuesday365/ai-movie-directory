@@ -1,0 +1,15 @@
+{
+  "name": "aimoviedirectory",  // Or whatever your project name is
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",  // or your main file
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^2.6.1"  // Or the latest version
+  }
+}
