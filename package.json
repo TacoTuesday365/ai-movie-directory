@@ -1,8 +1,8 @@
 {
-  "name": "aimoviedirectory",  // Or whatever your project name is
+  "name": "aimoviedirectory",
   "version": "1.0.0",
   "description": "",
-  "main": "index.html",  // or your main file
+  "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-fetch": "^2.6.1"  // Or the latest version
+    "node-fetch": "^2.6.1"
   }
 }
