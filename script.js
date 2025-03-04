@@ -70,7 +70,7 @@ async function loadMovies() {
 
 async function fetchMovieDetails(title, year) {
     try {
-        const response = await fetch(`/.netlify/functions/get_movie?title=${encodeURIComponent(title)}&year=${year}`);
+        const response = await fetch(`/.netlify/functions/get_movies?title=${encodeURIComponent(title)}&year=${year}`);
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         const data = await response.json();
         return data.Response === "True" ? data : null;
