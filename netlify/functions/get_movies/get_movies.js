@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 exports.handler = async (event) => {
-  const apiKey = process.env.TMDB_API_KEY; //Environment variable, store API key here
+  const apiKey = process.env.OMDB_API_KEY; //Environment variable, store API key here
 
   if (!apiKey) {
     return {
