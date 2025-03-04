@@ -56,7 +56,6 @@ const aiMovies = [
   { title: "Upgrade", year: "2018"},
   { title: "Alita: Battle Angel", year: "2019"},
   { title: "The Mitchells vs. The Machines", year: "2021"},
-  { title: "M3GAN", year: "2023"},
   { title: "The Creator", year: "2023"}
 ];
 
