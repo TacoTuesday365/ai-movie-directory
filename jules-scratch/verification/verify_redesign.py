@@ -1,69 +1,27 @@
-import asyncio
-from playwright.async_api import async_playwright, expect
-import os
-import json
+from playwright.sync_api import sync_playwright
+import time
 
-async def main():
-    async with async_playwright() as p:
-        browser = await p.chromium.launch()
-        page = await browser.new_page()
+def run(playwright):
+    browser = playwright.chromium.launch()
+    context = browser.new_context()
+    page = context.new_page()
 
-        # A smaller list of movies to speed up the test
-        mock_movies_list = [
-            {"title": "The Creator", "year": "2023"},      # New Releases
-            {"title": "I, Robot", "year": "2004"},         # Modern Classics
-            {"title": "Blade Runner", "year": "1982"},    # Golden Age
-            {"title": "Metropolis", "year": "1927"}       # Vintage
-        ]
+    # Navigate to the local file
+    import os
+    page.goto(f"file://{os.getcwd()}/index.html")
 
-        # This script will run before the page's scripts, overwriting the movie list
-        init_script = f"""
-            window.aiMovies = {json.dumps(mock_movies_list)};
-        """
-        await page.add_init_script(init_script)
+    # Give the page time to load
+    time.sleep(2)
 
-        # Mock movie data to be returned by the intercepted request
-        # We need to provide a valid poster to avoid broken images
-        mock_movie_details = {
-            "Title": "Test Movie From Mock",
-            "Year": "2024",
-            "Poster": "https://m.media-amazon.com/images/M/MV5BMjA5ODU3NTI0MV5BMl5BanBnXkFtZTcwODczMTk2Mw@@._V1_SX300.jpg",
-            "Plot": "A test plot for a test movie.",
-            "imdbRating": "8.8",
-            "Response": "True"
-        }
+    # Desktop screenshot
+    page.set_viewport_size({"width": 1280, "height": 800})
+    page.screenshot(path="jules-scratch/verification/desktop_header.png")
 
-        async def handle_route(route, request):
-            if "/.netlify/functions/get_movies" in request.url:
-                await route.fulfill(
-                    status=200,
-                    content_type="application/json",
-                    body=json.dumps(mock_movie_details)
-                )
-            else:
-                await route.continue_()
+    # Mobile screenshot
+    page.set_viewport_size({"width": 375, "height": 667})
+    page.screenshot(path="jules-scratch/verification/mobile_header.png")
 
-        await page.route("**/*", handle_route)
+    browser.close()
 
-        file_path = os.path.abspath('index.html')
-        await page.goto(f'file://{file_path}', wait_until='domcontentloaded')
-
-        # Wait for the hero section to load and display our mock data
-        hero_title = page.locator('.hero-title')
-        await expect(hero_title).to_have_text("Test Movie From Mock", timeout=30000)
-
-        # Wait for all 4 carousels to be visible
-        await expect(page.locator('.carousel-title')).to_have_count(4, timeout=30000)
-
-        # Wait for all 4 movie cards to be visible
-        await expect(page.locator('.movie-card')).to_have_count(4, timeout=30000)
-
-        # Give it a little extra time for images to render
-        await page.wait_for_timeout(2000)
-
-        await page.screenshot(path="jules-scratch/verification/verification.png")
-
-        await browser.close()
-
-if __name__ == "__main__":
-    asyncio.run(main())
+with sync_playwright() as playwright:
+    run(playwright)

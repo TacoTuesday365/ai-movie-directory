@@ -8,22 +8,53 @@ body {
     padding: 0;
 }
 
-h1 {
-    font-size: 1.75em; /* Larger main title */
-    margin-bottom: 0.25em; /* Space between the main title and the paragraph */
-}
-
 /* Header */
 header {
-    background: linear-gradient(90deg, #ff00ff, #6600ff);
-    padding: 0.5em 1em; /* Adjust padding: smaller vertical padding, a bit more horizontal */
-    width: 100%; /* Make the header span the entire page width */
+    background: #1a1a1a;
+    padding: 1em 5%;
+    border-bottom: 1px solid #333;
 }
 
-header p {
-    font-size: 1.05em; /* Make the subheading larger  (increased)*/
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    margin: 0;
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-icon {
+    font-size: 2em;
+    margin-right: 0.5em;
+}
+
+.logo-text {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ff00ff;
+}
+
+.tagline {
+    font-size: 1em;
+    color: #ccc;
+    font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .tagline {
+        margin-top: 0.5em;
+    }
 }
 
 /* Hero Section */
