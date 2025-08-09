@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", loadMovies);
+document.addEventListener("DOMContentLoaded", loadApp);
 
 const aiMovies = [
   { title: "Metropolis", year: "1927"},
@@ -59,26 +59,9 @@ const aiMovies = [
   { title: "The Creator", year: "2023"}
 ];
 
-async function loadMovies() {
-    const container = document.getElementById("movie-container");
-    container.innerHTML = ""; // Clear previous content
-
-    // Sort movies first by year
-    aiMovies.sort((a, b) => a.year - b.year);
-
-    const movieGrid = document.createElement("div");
-    movieGrid.classList.add("movie-grid");
-
-    for (const movie of aiMovies) {
-        try {
-            const data = await fetchMovieDetails(movie.title, movie.year);
-            if (data) movieGrid.appendChild(createMovieCard(data, movie.title + " " + movie.year + " trailer"));
-        } catch (error) {
-            console.error(`Error loading movie: ${movie.title}`, error);
-        }
-    }
-
-    container.appendChild(movieGrid);
+function loadApp() {
+    loadHero();
+    loadCarousels();
 }
 
 async function fetchMovieDetails(title, year) {
@@ -93,20 +76,90 @@ async function fetchMovieDetails(title, year) {
     }
 }
 
-function createMovieCard(movie, youtubeQuery) {
+async function loadHero() {
+    const heroSection = document.getElementById("hero-section");
+    const featuredMovie = aiMovies[Math.floor(Math.random() * aiMovies.length)];
+
+    try {
+        const movieDetails = await fetchMovieDetails(featuredMovie.title, featuredMovie.year);
+        if (movieDetails) {
+            heroSection.style.backgroundImage = `url(${movieDetails.Poster})`;
+            heroSection.innerHTML = `
+                <div class="hero-content">
+                    <h2 class="hero-title">${movieDetails.Title}</h2>
+                    <p class="hero-plot">${movieDetails.Plot}</p>
+                    <p class="hero-rating">IMDb: ${movieDetails.imdbRating}</p>
+                </div>
+            `;
+        }
+    } catch (error) {
+        console.error("Error loading hero movie:", error);
+    }
+}
+
+function loadCarousels() {
+    const carouselsContainer = document.getElementById("carousels-container");
+    carouselsContainer.innerHTML = "";
+
+    const categories = {
+        "New Releases (2010s & 2020s)": movie => parseInt(movie.year) >= 2010,
+        "Modern Classics (2000s)": movie => parseInt(movie.year) >= 2000 && parseInt(movie.year) < 2010,
+        "Golden Age (1980s & 1990s)": movie => parseInt(movie.year) >= 1980 && parseInt(movie.year) < 2000,
+        "Vintage AI (Pre-1980s)": movie => parseInt(movie.year) < 1980
+    };
+
+    // Sort movies by year descending for "New Releases", and ascending for others
+    aiMovies.sort((a, b) => b.year - a.year);
+
+    for (const [title, filterFn] of Object.entries(categories)) {
+        const moviesForCarousel = aiMovies.filter(filterFn);
+        if (moviesForCarousel.length > 0) {
+            createCarousel(title, moviesForCarousel, carouselsContainer);
+        }
+    }
+}
+
+function createCarousel(title, movies, container) {
+    const carousel = document.createElement("div");
+    carousel.classList.add("carousel");
+
+    const carouselTitle = document.createElement("h2");
+    carouselTitle.classList.add("carousel-title");
+    carouselTitle.textContent = title;
+
+    const carouselContent = document.createElement("div");
+    carouselContent.classList.add("carousel-content");
+
+    movies.forEach(async movie => {
+        try {
+            const movieDetails = await fetchMovieDetails(movie.title, movie.year);
+            if (movieDetails) {
+                const card = createMovieCard(movieDetails);
+                carouselContent.appendChild(card);
+            }
+        } catch (error) {
+            console.error(`Error loading movie for carousel: ${movie.title}`, error);
+        }
+    });
+
+    carousel.appendChild(carouselTitle);
+    carousel.appendChild(carouselContent);
+    container.appendChild(carousel);
+}
+
+function createMovieCard(movie) {
     const card = document.createElement("div");
     card.classList.add("movie-card");
 
-    // Create the movie card content
+    const youtubeQuery = `${movie.Title} ${movie.Year} trailer`;
     card.innerHTML = `
         <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(youtubeQuery)}" target="_blank">
             <img src="${movie.Poster && movie.Poster !== "N/A" ? movie.Poster : "placeholder.jpg"}" alt="${movie.Title}">
-            <h3>${movie.Title}</h3>
+            <div class="movie-card-content">
+                <h3>${movie.Title}</h3>
+                <p>IMDb: ${movie.imdbRating || "N/A"}</p>
+            </div>
         </a>
-        <p><strong>Year:</strong> ${movie.Year}</p>
-        <p><strong>Plot:</strong> ${movie.Plot || "No description available."}</p>
-        <p><strong>IMDB Rating:</strong> ${movie.imdbRating || "N/A"}</p>
     `;
-
     return card;
 }
