@@ -26,42 +26,94 @@ header p {
     margin: 0;
 }
 
-/* User Guide */
-#user-guide {
-    background: #222;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    /*text-align: left;*//*removed and should be the center point*/
-}
-
-#user-guide h2 {
-    color: #ff00ff;
-    margin-bottom: 10px;
-}
-
-#user-guide p {
-    color: #ffccff;
-}
-
-/* Movie Grid */
-.movie-grid {
+/* Hero Section */
+#hero-section {
+    position: relative;
+    height: 80vh;
+    background-size: cover;
+    background-position: center;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
+    align-items: center;
+    padding: 0 5%;
+    color: #fff;
 }
 
-/* Movie Cards */
+#hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.9) 20%, rgba(0, 0, 0, 0.2) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 50%;
+    text-align: left;
+}
+
+.hero-title {
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
+
+.hero-plot {
+    font-size: 1.2em;
+    margin-bottom: 1em;
+    line-height: 1.5;
+}
+
+.hero-rating {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #ffc107; /* Gold color for rating */
+}
+
+/* Carousels */
+#carousels-container {
+    padding: 20px 0;
+}
+
+.carousel {
+    margin-bottom: 30px;
+}
+
+.carousel-title {
+    font-size: 1.5em;
+    color: #ff00ff;
+    text-align: left;
+    padding-left: 5%;
+    margin-bottom: 15px;
+}
+
+.carousel-content {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 5%;
+    gap: 15px;
+    scrollbar-width: none; /* For Firefox */
+}
+
+.carousel-content::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+/* Movie Cards for Carousel */
 .movie-card {
+    flex: 0 0 180px; /* Do not grow, do not shrink, base width */
     background: #222;
-    padding: 15px;
     border-radius: 8px;
-    text-align: center;
-    width: 200px;
     box-shadow: 0px 4px 6px rgba(255, 0, 255, 0.5);
     transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+    text-align: left;
 }
 
 .movie-card:hover {
@@ -71,19 +123,26 @@ header p {
 
 .movie-card img {
     width: 100%;
-    height: auto;
-    border-radius: 5px;
+    height: 250px; /* Fixed height for uniform card size */
+    object-fit: cover; /* Ensures image covers the area without distortion */
+    border-radius: 5px 5px 0 0;
+}
+
+.movie-card-content {
+    padding: 10px;
 }
 
 .movie-card h3 {
-    font-size: 16px;
-    margin: 10px 0 5px;
+    font-size: 1em;
+    margin: 0 0 5px;
     color: #ff00ff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .movie-card p {
-    font-size: 12px;
+    font-size: 0.8em;
     color: #ffccff;
-    text-align: left;
-    padding: 0 5px;
+    margin: 0;
 }
